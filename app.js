@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.querySelector('.grid');
     const resultDisplay = document.querySelector('#result')
+    const messageDisplay = document.querySelector('#message')
     var cardsChosen = [];
     var cardsChosenId = [];
     var cardsWon = [];
@@ -76,15 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const optionOneId = cardsChosenId[0]
         const optionTwoId = cardsChosenId[1]
         if (cardsChosen[0] === cardsChosen[1]) {
-            alert('You found a match !')
+            messageDisplay.innerHTML = 'You found a match !'
             cards[optionOneId].setAttribute('src','images/white.jpg')
             cards[optionTwoId].setAttribute('src','images/white.jpg')
             cardsWon.push(cardsChosen)
         } else {
             cards[optionOneId].setAttribute('src','images/blank.jpg')
             cards[optionTwoId].setAttribute('src','images/blank.jpg')
-            alert('Sorry, try again !')
+            messageDisplay.innerHTML = 'Sorry, try again !'
         }
+        
         cardsChosen = []
         cardsChosenId = []
         resultDisplay.textContent = cardsWon.length
@@ -94,12 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipCard() {
+        var cardImage = this.getAttribute('src')
         var cardId = this.getAttribute('data-id')
+        if (cardImage === 'images/white.jpg') {
+            messageDisplay.innerHTML = 'This card was removed from the board !'
+        } else if (cardsChosen.length === 1 && cardId === cardsChosenId[0]) {
+            messageDisplay.innerHTML = 'You must flip a different card !'
+        } else if (cardsChosen.length !== 2) {
         cardsChosen.push(cardArray[cardId].name)
         cardsChosenId.push(cardId)
         this.setAttribute('src', cardArray[cardId].img)
+        } else {
+            messageDisplay.innerHTML = 'You can only flip two !'
+        }
         if (cardsChosen.length === 2) {
-            setTimeout(checkForMatch, 500)
+            setTimeout(checkForMatch, 300)
         }
     }
 
