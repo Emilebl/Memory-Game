@@ -32,7 +32,6 @@ h1 {
     margin: auto;
     display: flex;
     justify-content: space-between;
-    
 }
 
 #game-zone {
@@ -54,4 +53,24 @@ img {
     height: 150px;
     border: 1px white solid;
     border-radius: 10px;
+}
+
+@media ( max-width: 1023px) {
+
+}
+@media ( max-width: 767px) {
+    img {
+        width: 75px;
+        height: 75px;
+    }
+    .grid {
+        height: 250px;
+        width: 325px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    #game-infos {
+        font-size: 1em;
+    }
 }
